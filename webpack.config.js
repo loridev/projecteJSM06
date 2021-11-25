@@ -12,6 +12,14 @@ module.exports = {
             filename: 'index.html',
             template: './src/index.html',
         }),
+        new HtmlWebpackPlugin({
+            filename: 'myteam.html',
+            template: './src/myteam.html',
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'teams.html',
+            template: './src/teams.html',
+        }),
     ],
     devServer: {
         static: './dist',

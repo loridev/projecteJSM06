@@ -12,34 +12,6 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <title>Document</title>
-    <style>
-        .formularioIndiv {
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            width: 50%;
-        }
-
-        .icon {
-            width: 5%;
-            margin-left: 2%;
-        }
-
-        .icono {
-            font-size: 3em;
-        }
-
-        .btn {
-            background-color: rgb(63, 189, 178);
-            color: white;
-            margin: 2%;
-        }
-
-        .flecha {
-            vertical-align: middle;
-            margin-left: 0.2em;
-        }
-    </style>
 </head>
 
 <body>
@@ -61,8 +33,8 @@
     </nav>
 
     <form>
-        <div class="formularioIndiv">
-            <div class="icon"><i class="material-icons icono">account_circle</i></div>
+        <div>
+            <div><i class="material-icons">account_circle</i></div>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control border-top-0 border-end-0 border-start-0" id="nombre"
                     placeholder="Nombre Completo">
@@ -70,8 +42,8 @@
                 <small>Solo carácteres alfanuméricos</small>
             </div>
         </div>
-        <div class="formularioIndiv">
-            <div class="icon"><i class="material-icons icono">email</i></div>
+        <div>
+            <div><i class="material-icons">email</i></div>
             <div class="form-floating mb-3">
                 <input type="email" class="form-control border-top-0 border-end-0 border-start-0" id="email"
                     placeholder="Email">
@@ -80,8 +52,8 @@
             </div>
         </div>
 
-        <div class="formularioIndiv">
-            <div class="icon"><i class="material-icons icono">lock</i></div>
+        <div>
+            <div class="icon"><i class="material-icons">lock</i></div>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control border-top-0 border-end-0 border-start-0" id="password"
                     placeholder="Password">
@@ -90,7 +62,7 @@
             </div>
         </div>
 
-        <button type="button" class="btn">REGISTRARSE<i class="material-icons flecha">send</i></button>
+        <button type="button">REGISTRARSE<i class="material-icons">send</i></button>
     </form>
 </body>
 

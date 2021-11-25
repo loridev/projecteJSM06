@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,21 +41,57 @@
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand navbar-dark bg-primary">
         <div class="container-fluid">
             <a href="#" class="navbar-brand"> <b>Exercise - Register </b></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-                <div class="collapse d-flex" id="menu">
-                    <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="index.html">Register</a>
-                        <a class="nav-link" href="list.html">List</a>
-                        <a class="nav-link" href="details.html">Details</a>
-                    </div>
+            <div class="collapse d-flex" id="menu">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="index.html">Register</a>
+                    <a class="nav-link" href="list.html">List</a>
+                    <a class="nav-link" href="details.html">Details</a>
                 </div>
+            </div>
         </div>
     </nav>
+
+    <form>
+        <div class="formularioIndiv">
+            <div class="icon"><i class="material-icons icono">account_circle</i></div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control border-top-0 border-end-0 border-start-0" id="nombre"
+                    placeholder="Nombre Completo">
+                <label for="nombre">Nombre Completo</label>
+                <small>Solo carácteres alfanuméricos</small>
+            </div>
+        </div>
+        <div class="formularioIndiv">
+            <div class="icon"><i class="material-icons icono">email</i></div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control border-top-0 border-end-0 border-start-0" id="email"
+                    placeholder="Email">
+                <label for="email">Email</label>
+                <small>Formato: example@example.example</small>
+            </div>
+        </div>
+
+        <div class="formularioIndiv">
+            <div class="icon"><i class="material-icons icono">lock</i></div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control border-top-0 border-end-0 border-start-0" id="password"
+                    placeholder="Password">
+                <label for="password">Password</label>
+                <small>Debe contener al menos una mayúscula, minúscula y un número. Mínimo 5 carácteres.</small>
+            </div>
+        </div>
+
+        <button type="button" class="btn">REGISTRARSE<i class="material-icons flecha">send</i></button>
+    </form>
 </body>
+
 </html>

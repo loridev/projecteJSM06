@@ -1,4 +1,5 @@
 const form = document.querySelector('form');
+
 const button = document.getElementById('btnregister');
 const p = document.querySelector('p');
 

@@ -14,17 +14,25 @@ async function getTeams() {
     return { status: false, msg: '¡Oh no, ha ocurrido un error!' };
 }
 
-async function handleResponse(response) {
+async function handleResponseTeams(response) {
     if (response.status) {
         const teams = Array.from(response.msg.response);
         teams.forEach((element) => {
             ul.insertAdjacentHTML('beforeend', `
-            <li><img src="${element.team.logo}"><br><span>${element.team.name}</span></li>
+            <li><img src="${element.team.logo}"><br><div>${element.team.name}</div></li>
             `);
         });
     }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    handleResponse(await getTeams());
+    handleResponseTeams(await getTeams());
+});
+
+ul.addEventListener('click', (e) => {
+    if (e.target.localName === 'img' || e.target.localName === 'div' || e.target.localName === 'li') {
+        clickedTeam = document.getElementById(e.target.id);
+        clickedTeam.parentElement.classList.add('active');
+        console.log(clickedTeam);
+    }
 });

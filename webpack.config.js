@@ -15,14 +15,17 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './src/index.html',
+            chunks: ['polyfill', 'index'],
         }),
         new HtmlWebpackPlugin({
             filename: 'myteam.html',
             template: './src/myteam.html',
+            chunks: ['polyfill', 'myteam'],
         }),
         new HtmlWebpackPlugin({
             filename: 'teams.html',
             template: './src/teams.html',
+            chunks: ['polyfill', 'teams'],
         }),
     ],
     devServer: {

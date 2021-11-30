@@ -4,7 +4,7 @@ const button = document.getElementById('btnregister');
 const p = document.querySelector('p');
 
 async function register() {
-    const result = await fetch('https://jsonplaceholder.typicode.com/posts', {
+    const result = await fetch('https://jsonplaceholder.typicode.com/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

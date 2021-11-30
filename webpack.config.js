@@ -2,10 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: ['babel-polyfill', './src/js/index.js', './src/js/teams.js', './src/js/myteam.js'], // Fichero de entrada
+    entry: {
+        polyfill: ['babel-polyfill'],
+        index: './src/js/index.js',
+        teams: './src/js/teams.js',
+        myteam: './src/js/myteam.js',
+    },
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'js/bundle.js',
+        path: path.resolve(process.cwd(), 'dist'),
     },
     plugins: [
         new HtmlWebpackPlugin({

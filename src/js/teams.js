@@ -1,13 +1,9 @@
 const ul = document.querySelector('.list-group');
 
-document.addEventListener('DOMContentLoaded', async () => {
-    await getTeams();
-});
-
 async function getTeams() {
     const result = await fetch('https://v3.football.api-sports.io/teams?league=140&season=2020', {
-        body: JSON.stringify({
-            'x-apisports-key': 'bdab5e4483ea71a6b7ab7fa746d5f99d',
+        headers: ({
+            "x-apisports-key": "bdab5e4483ea71a6b7ab7fa746d5f99d",
         }),
     });
     if (result.status === 200) {
@@ -19,5 +15,16 @@ async function getTeams() {
 }
 
 async function handleResponse(response) {
-
+    if (response.status) {
+        const teams = Array.from(response.msg.response);
+        teams.forEach((element) => {
+            ul.insertAdjacentHTML('beforeend', `
+            <li><img src="${element.team.logo}"><br><span>${element.team.name}</span></li>
+            `);
+        });
+    }
 }
+
+document.addEventListener('DOMContentLoaded', async () => {
+    handleResponse(await getTeams());
+});

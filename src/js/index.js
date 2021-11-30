@@ -1,4 +1,3 @@
-require('./teams');
 const form = document.querySelector('form');
 
 const button = document.getElementById('btnregister');

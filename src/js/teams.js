@@ -3,7 +3,7 @@ const ul = document.querySelector('.list-group');
 async function getTeams() {
     const result = await fetch('https://v3.football.api-sports.io/teams?league=140&season=2020', {
         headers: ({
-            "x-apisports-key": "bdab5e4483ea71a6b7ab7fa746d5f99d",
+            'x-apisports-key': 'bdab5e4483ea71a6b7ab7fa746d5f99d',
         }),
     });
     if (result.status === 200) {

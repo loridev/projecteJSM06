@@ -4,7 +4,7 @@ const button = document.getElementById('btnregister');
 const p = document.querySelector('p');
 
 const regexName = /^[A-Za-z ]+$/;
-const regexMail = /^\w+([\.\+\-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+const regexMail = /^\w+([.+-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
 const regexPassword = /^[A-Za-z0-9]{5,}$/;
 
 async function register() {
@@ -22,6 +22,7 @@ async function register() {
         p.innerHTML = '¡Se ha registrado con éxito!';
         const resultJson = await result.json();
         sessionStorage.setItem('id', resultJson.id);
+        window.location.href = 'http://localhost:8080/teams.html';
     } else {
         p.innerHTML = '¡Oh no, ha ocurrido un error!';
     }

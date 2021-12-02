@@ -22,7 +22,6 @@ async function register() {
         p.innerHTML = '¡Se ha registrado con éxito!';
         const resultJson = await result.json();
         sessionStorage.setItem('id', resultJson.id);
-        console.log(resultJson.id);
     } else {
         p.innerHTML = '¡Oh no, ha ocurrido un error!';
     }

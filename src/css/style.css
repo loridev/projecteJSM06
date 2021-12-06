@@ -1,4 +1,20 @@
 .flecha {
-    vertical-align: middle !important;
-    margin-left: 5em !important;
+    vertical-align: middle;
+    margin-left: 5em;
+}
+
+.list-group {
+    display: flex;
+    justify-content: center;
+}
+
+.list-group > * {
+    width: 100%;
+    text-align: center;
+}
+
+#colder {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }

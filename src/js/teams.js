@@ -1,10 +1,13 @@
+import '../css/style.css';
+
 const ulColIzq = document.getElementById('colizq');
 const ulColMed = document.getElementById('colmed');
+const columnaDerecha = document.getElementById('colder');
 
 async function getTeams() {
     const result = await fetch('https://v3.football.api-sports.io/teams?league=140&season=2020', {
         headers: ({
-            'x-apisports-key': '6dc9926e303d66857fb46878872562ad',
+            'x-apisports-key': 'bdab5e4483ea71a6b7ab7fa746d5f99d',
         }),
     });
     if (result.status === 200) {
@@ -56,6 +59,32 @@ async function handleResponsePlayers(response) {
     }
 }
 
+async function getInfoFromPlayer(playerId) {
+    const result = await fetch(`https://v3.football.api-sports.io/players?league=140&season=2020&id=${playerId}`, {
+        headers: ({
+            'x-apisports-key': 'bdab5e4483ea71a6b7ab7fa746d5f99d',
+        }),
+    });
+
+    if (result.status === 200) {
+        const jsonResponse = await result.json();
+        return { status: true, msg: jsonResponse };
+    }
+    return { status: false, msg: '¡Oh no, ha ocurrido un error!' };
+}
+
+async function handleResponseInfo(response) {
+    if (response.status) {
+        const info = Array.from(response.msg.response)[0];
+
+        columnaDerecha.innerHTML = `
+        <img src="${info.player.photo}">
+        <p>Nombre: ${info.player.name}</p>
+        <p>Edad: ${info.player.age}</p>
+        `;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     handleResponseTeams(await getTeams());
 });
@@ -73,7 +102,7 @@ ulColIzq.addEventListener('click', async (e) => {
             teamId = clickedTeam.parentElement.dataset.teamid;
         } else {
             clickedTeam.classList.add('active');
-            teamId = clickedTeam.parentElement.dataset.teamid;
+            teamId = clickedTeam.dataset.teamid;
         }
 
         handleResponsePlayers(await getPlayersFromTeam(teamId));
@@ -82,21 +111,20 @@ ulColIzq.addEventListener('click', async (e) => {
 
 ulColMed.addEventListener('click', async (e) => {
     if (e.target.localName === 'div' || e.target.localName === 'li') {
+        let playerId;
         if (Array.from(document.querySelectorAll('#colmed > li.active')).length !== 0) {
-            let playerId;
-            if (Array.from(document.querySelectorAll('#colmed > li.active')).length !== 0) {
-                const selected = document.querySelector('#colmed > li.active');
-                selected.classList.remove('active');
-            }
-            const clickedPlayer = document.getElementById(e.target.id);
-            if (clickedPlayer.localName !== 'li') {
-                clickedPlayer.parentElement.classList.add('active');
-                playerId = clickedPlayer.parentElement.dataset.playerid;
-            } else {
-                clickedPlayer.classList.add('active');
-                playerId = clickedPlayer.parentElement.dataset.playerid;
-            }
-            // handleResponsePlayers(await getPlayersFromTeam(teamId));
+            const selected = document.querySelector('#colmed > li.active');
+            selected.classList.remove('active');
         }
+        const clickedPlayer = document.getElementById(e.target.id);
+        if (clickedPlayer.localName !== 'li') {
+            clickedPlayer.parentElement.classList.add('active');
+            playerId = clickedPlayer.parentElement.dataset.playerid;
+        } else {
+            clickedPlayer.classList.add('active');
+            playerId = clickedPlayer.parentElement.dataset.playerid;
+        }
+
+        handleResponseInfo(await getInfoFromPlayer(playerId));
     }
-})
+});

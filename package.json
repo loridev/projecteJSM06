@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "copy-webpack-plugin": "^10.0.0"
+    "copy-webpack-plugin": "^10.0.0",
+    "css-loader": "^6.5.1",
+    "style-loader": "^3.3.1"
   }
 }

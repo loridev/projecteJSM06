@@ -3,11 +3,18 @@ import '../css/style.css';
 const ulColIzq = document.getElementById('colizq');
 const ulColMed = document.getElementById('colmed');
 const columnaDerecha = document.getElementById('colder');
+let favoritos;
+
+try {
+    favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+} catch (err) {
+    console.warn('Ha ocurrido un error al obtener los favoritos');
+}
 
 async function getTeams() {
     const result = await fetch('https://v3.football.api-sports.io/teams?league=140&season=2020', {
         headers: ({
-            'x-apisports-key': 'bdab5e4483ea71a6b7ab7fa746d5f99d',
+            'x-apisports-key': '6dc9926e303d66857fb46878872562ad',
         }),
     });
     if (result.status === 200) {
@@ -34,7 +41,7 @@ async function handleResponseTeams(response) {
 async function getPlayersFromTeam(teamId) {
     const result = await fetch(`https://v3.football.api-sports.io/players?league=140&season=2020&team=${teamId}`, {
         headers: ({
-            'x-apisports-key': 'bdab5e4483ea71a6b7ab7fa746d5f99d',
+            'x-apisports-key': '6dc9926e303d66857fb46878872562ad',
         }),
     });
 
@@ -62,7 +69,7 @@ async function handleResponsePlayers(response) {
 async function getInfoFromPlayer(playerId) {
     const result = await fetch(`https://v3.football.api-sports.io/players?league=140&season=2020&id=${playerId}`, {
         headers: ({
-            'x-apisports-key': 'bdab5e4483ea71a6b7ab7fa746d5f99d',
+            'x-apisports-key': '6dc9926e303d66857fb46878872562ad',
         }),
     });
 
@@ -76,12 +83,49 @@ async function getInfoFromPlayer(playerId) {
 async function handleResponseInfo(response) {
     if (response.status) {
         const info = Array.from(response.msg.response)[0];
+        let estrella;
+
+        try {
+            if (favoritos.find((el) => el === info.player.id)) {
+                estrella = 'star';
+            } else {
+                estrella = 'star_border';
+            }
+        } catch (err) {
+            console.warn(err);
+        }
 
         columnaDerecha.innerHTML = `
         <img src="${info.player.photo}">
         <p>Nombre: ${info.player.name}</p>
         <p>Edad: ${info.player.age}</p>
+        <i class="material-icons">${estrella}</i>
         `;
+
+        const estrellaIcono = document.querySelector('.material-icons');
+        estrellaIcono.addEventListener('click', () => {
+            try {
+                if (favoritos.find((el) => el === info.player.id)) {
+                    estrellaIcono.innerHTML = 'star_border';
+                    favoritos.forEach((fav, i) => {
+                        if (fav === info.player.id) {
+                            favoritos.splice(i, 1);
+                        }
+                    });
+                } else {
+                    estrellaIcono.innerHTML = 'star';
+                    favoritos.push(info.player.id);
+                }
+
+                if (favoritos.length !== 0) {
+                    localStorage.setItem('favoritos', JSON.stringify(favoritos));
+                } else {
+                    localStorage.removeItem('favoritos');
+                }
+            } catch (err) {
+                console.warn(err);
+            }
+        });
     }
 }
 

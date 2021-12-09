@@ -86,7 +86,7 @@ async function handleResponseInfo(response) {
         let estrella;
 
         try {
-            if (favoritos.find((el) => el === info.player.id)) {
+            if (favoritos.find((el) => el.player.id === info.player.id)) {
                 estrella = 'star';
             } else {
                 estrella = 'star_border';
@@ -105,16 +105,16 @@ async function handleResponseInfo(response) {
         const estrellaIcono = document.querySelector('.material-icons');
         estrellaIcono.addEventListener('click', () => {
             try {
-                if (favoritos.find((el) => el === info.player.id)) {
+                if (favoritos.find((el) => el.player.id === info.player.id)) {
                     estrellaIcono.innerHTML = 'star_border';
                     favoritos.forEach((fav, i) => {
-                        if (fav === info.player.id) {
+                        if (fav.player.id === info.player.id) {
                             favoritos.splice(i, 1);
                         }
                     });
                 } else {
                     estrellaIcono.innerHTML = 'star';
-                    favoritos.push(info.player.id);
+                    favoritos.push(info);
                 }
 
                 if (favoritos.length !== 0) {

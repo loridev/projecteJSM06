@@ -1,8 +1,3 @@
-.flecha {
-    vertical-align: middle;
-    margin-left: 5em;
-}
-
 .list-group {
     display: flex;
     justify-content: center;
@@ -21,4 +16,29 @@
 
 .navbar {
     margin-bottom: 1em;
+}
+
+.formularioIndiv {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.form-floating {
+    width: 100%;
+}
+
+.flecha {
+    vertical-align: middle;
+    margin-left: 0.5em;
+}
+
+.icon {
+    width: 5%;
+    margin-left: 2%;
+    margin-top: 0.5em;
+}
+
+.icono {
+    font-size: 3em;
 }

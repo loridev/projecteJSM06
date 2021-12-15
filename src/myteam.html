@@ -11,6 +11,8 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/slick-loader@1.1.20/slick-loader.min.css">
+    <script src="https://unpkg.com/slick-loader@1.1.20/slick-loader.min.js"></script>
     <title>M06-PR01-EQUIPOS</title>
 </head>
 
@@ -32,12 +34,14 @@
         </div>
     </nav>
 
-    <main class="row">
-        <span id="noFavs"></span>
-        <section class="col">
+    <main class="row" id="unbug">
+        <section class="col" id="columnaizq">
+            <span id="noFavs"></span>
             <ul id="colizq" class="list-group"></ul>
         </section>
-        <section class="col">
+        <section class="col" id="columnader">
+            <div id="noTeam">
+            </div>
             <ul id="colder" class="list-group"></ul>
         </section>
     </main>
@@ -50,10 +54,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
             </div>
         </div>
     </div>

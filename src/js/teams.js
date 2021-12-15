@@ -17,7 +17,7 @@ try {
     favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
     equipo = JSON.parse(localStorage.getItem('equipo')) || [];
 } catch (err) {
-    console.warn('Ha ocurrido un error al obtener los favoritos o el equipo');
+    // console.warn('Ha ocurrido un error al obtener los favoritos o el equipo');
 }
 
 async function getTeams() {
@@ -118,7 +118,7 @@ async function handleResponseInfo(response) {
                 estrella = 'star_border';
             }
         } catch (err) {
-            console.warn(err);
+            // console.warn(err);
         }
 
         columnaDerecha.innerHTML = `
@@ -159,7 +159,7 @@ async function handleResponseInfo(response) {
                     localStorage.removeItem('equipo');
                 }
             } catch (err) {
-                console.warn(err);
+                // console.warn(err);
             }
         });
     } else {

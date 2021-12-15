@@ -49,7 +49,7 @@ try {
     favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
     equipo = JSON.parse(localStorage.getItem('equipo')) || [];
 } catch (err) {
-    console.warn('Ha ocurrido un error al obtener los favoritos o el equipo');
+    // console.warn('Ha ocurrido un error al obtener los favoritos o el equipo');
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -183,7 +183,7 @@ colDer.addEventListener('drop', (e) => {
             localStorage.setItem('equipo', JSON.stringify(equipo));
             actualizarLista();
         } catch (err) {
-            console.warn('Ha habido un error al guardar el equipo');
+            // console.warn('Ha habido un error al guardar el equipo');
         }
     }
 });
@@ -218,7 +218,7 @@ colIzq.addEventListener('drop', (e) => {
             localStorage.setItem('equipo', JSON.stringify(equipo));
             actualizarLista();
         } catch (err) {
-            console.warn('Ha habido un error al guardar el equipo');
+            // console.warn('Ha habido un error al guardar el equipo');
         }
     }
 });

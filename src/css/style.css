@@ -14,6 +14,10 @@
     flex-direction: column;
 }
 
+#unbug {
+    --bs-gutter-x: 0;
+}
+
 .navbar {
     margin-bottom: 1em;
 }
@@ -45,4 +49,47 @@
 
 .btn {
     margin: 2.5%;
+}
+
+.dragover {
+    border-color: #0d6efd;
+    border-width: 3px;
+    border-style: dashed;
+}
+
+#noTeam {
+    text-align: center;
+}
+
+.spinner {
+    width: 4rem;
+    height: 4rem;
+    border: 5px solid #0d6efd;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-radius: 100%;
+    margin: 1rem;
+    animation: rotation 3s ease-in-out infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.hide {
+    display: none;
+}
+
+#colder > .material-icons {
+    cursor: pointer;
 }

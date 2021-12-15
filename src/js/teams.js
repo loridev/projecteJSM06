@@ -3,15 +3,25 @@ import '../css/style.css';
 const ulColIzq = document.getElementById('colizq');
 const ulColMed = document.getElementById('colmed');
 const columnaDerecha = document.getElementById('colder');
+
+const spinnerIzq = document.getElementById('spinizq');
+const spinnerMed = document.getElementById('spinmed');
+const spinnerDer = document.getElementById('spinder');
+
+const alerta = document.getElementById('estadoregister');
+
 let favoritos;
+let equipo;
 
 try {
     favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+    equipo = JSON.parse(localStorage.getItem('equipo')) || [];
 } catch (err) {
-    console.warn('Ha ocurrido un error al obtener los favoritos');
+    console.warn('Ha ocurrido un error al obtener los favoritos o el equipo');
 }
 
 async function getTeams() {
+    spinnerIzq.classList.remove('hide');
     const result = await fetch('https://v3.football.api-sports.io/teams?league=140&season=2020', {
         headers: ({
             'x-apisports-key': '6dc9926e303d66857fb46878872562ad',
@@ -21,6 +31,7 @@ async function getTeams() {
         const jsonResponse = await result.json();
         return { status: true, msg: jsonResponse };
     }
+
     return { status: false, msg: '¡Oh no, ha ocurrido un error!' };
 }
 
@@ -35,10 +46,16 @@ async function handleResponseTeams(response) {
             </li>
             `);
         });
+    } else {
+        alerta.classList.add('alert');
+        alerta.classList.add('alert-danger');
+        alerta.innerHTML = '¡Oh no, ha ocurrido un error!';
     }
+    spinnerIzq.classList.add('hide');
 }
 
 async function getPlayersFromTeam(teamId) {
+    spinnerMed.classList.remove('hide');
     const result = await fetch(`https://v3.football.api-sports.io/players?league=140&season=2020&team=${teamId}`, {
         headers: ({
             'x-apisports-key': '6dc9926e303d66857fb46878872562ad',
@@ -63,10 +80,16 @@ async function handleResponsePlayers(response) {
                 </li>
             `);
         });
+    } else {
+        alerta.classList.add('alert');
+        alerta.classList.add('alert-danger');
+        alerta.innerHTML = '¡Oh no, ha ocurrido un error!';
     }
+    spinnerMed.classList.add('hide');
 }
 
 async function getInfoFromPlayer(playerId) {
+    spinnerDer.classList.remove('hide');
     const result = await fetch(`https://v3.football.api-sports.io/players?league=140&season=2020&id=${playerId}`, {
         headers: ({
             'x-apisports-key': '6dc9926e303d66857fb46878872562ad',
@@ -77,6 +100,9 @@ async function getInfoFromPlayer(playerId) {
         const jsonResponse = await result.json();
         return { status: true, msg: jsonResponse };
     }
+    alerta.classList.add('alert');
+    alerta.classList.add('alert-danger');
+    alerta.innerHTML = '¡Oh no, ha ocurrido un error!';
     return { status: false, msg: '¡Oh no, ha ocurrido un error!' };
 }
 
@@ -112,6 +138,14 @@ async function handleResponseInfo(response) {
                             favoritos.splice(i, 1);
                         }
                     });
+
+                    if (equipo.find((el) => el.player.id === info.player.id)) {
+                        equipo.forEach((jugEquipo, i) => {
+                            if (jugEquipo.player.id === info.player.id) {
+                                equipo.splice(i, 1);
+                            }
+                        });
+                    }
                 } else {
                     estrellaIcono.innerHTML = 'star';
                     favoritos.push(info);
@@ -119,14 +153,21 @@ async function handleResponseInfo(response) {
 
                 if (favoritos.length !== 0) {
                     localStorage.setItem('favoritos', JSON.stringify(favoritos));
+                    localStorage.setItem('equipo', JSON.stringify(equipo));
                 } else {
                     localStorage.removeItem('favoritos');
+                    localStorage.removeItem('equipo');
                 }
             } catch (err) {
                 console.warn(err);
             }
         });
+    } else {
+        alerta.classList.add('alert');
+        alerta.classList.add('alert-danger');
+        alerta.innerHTML = '¡Oh no, ha ocurrido un error!';
     }
+    spinnerDer.classList.add('hide');
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

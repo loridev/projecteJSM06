@@ -1,4 +1,5 @@
 import '../css/style.css';
+import { getTeams, getInfoFromPlayer, getPlayersFromTeam } from './api';
 
 const ulColIzq = document.getElementById('colizq');
 const ulColMed = document.getElementById('colmed');
@@ -20,21 +21,6 @@ try {
     // console.warn('Ha ocurrido un error al obtener los favoritos o el equipo');
 }
 
-async function getTeams() {
-    spinnerIzq.classList.remove('hide');
-    const result = await fetch('https://v3.football.api-sports.io/teams?league=140&season=2020', {
-        headers: ({
-            'x-apisports-key': '6dc9926e303d66857fb46878872562ad',
-        }),
-    });
-    if (result.status === 200) {
-        const jsonResponse = await result.json();
-        return { status: true, msg: jsonResponse };
-    }
-
-    return { status: false, msg: '¡Oh no, ha ocurrido un error!' };
-}
-
 async function handleResponseTeams(response) {
     if (response.status) {
         const teams = Array.from(response.msg.response);
@@ -54,21 +40,6 @@ async function handleResponseTeams(response) {
     spinnerIzq.classList.add('hide');
 }
 
-async function getPlayersFromTeam(teamId) {
-    spinnerMed.classList.remove('hide');
-    const result = await fetch(`https://v3.football.api-sports.io/players?league=140&season=2020&team=${teamId}`, {
-        headers: ({
-            'x-apisports-key': '6dc9926e303d66857fb46878872562ad',
-        }),
-    });
-
-    if (result.status === 200) {
-        const jsonResponse = await result.json();
-        return { status: true, msg: jsonResponse };
-    }
-    return { status: false, msg: '¡Oh no, ha ocurrido un error!' };
-}
-
 async function handleResponsePlayers(response) {
     if (response.status) {
         const players = Array.from(response.msg.response);
@@ -86,24 +57,6 @@ async function handleResponsePlayers(response) {
         alerta.innerHTML = '¡Oh no, ha ocurrido un error!';
     }
     spinnerMed.classList.add('hide');
-}
-
-async function getInfoFromPlayer(playerId) {
-    spinnerDer.classList.remove('hide');
-    const result = await fetch(`https://v3.football.api-sports.io/players?league=140&season=2020&id=${playerId}`, {
-        headers: ({
-            'x-apisports-key': '6dc9926e303d66857fb46878872562ad',
-        }),
-    });
-
-    if (result.status === 200) {
-        const jsonResponse = await result.json();
-        return { status: true, msg: jsonResponse };
-    }
-    alerta.classList.add('alert');
-    alerta.classList.add('alert-danger');
-    alerta.innerHTML = '¡Oh no, ha ocurrido un error!';
-    return { status: false, msg: '¡Oh no, ha ocurrido un error!' };
 }
 
 async function handleResponseInfo(response) {
@@ -171,10 +124,12 @@ async function handleResponseInfo(response) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+    spinnerIzq.classList.remove('hide');
     handleResponseTeams(await getTeams());
 });
 
 ulColIzq.addEventListener('click', async (e) => {
+    spinnerMed.classList.remove('hide');
     if (e.target.localName === 'img' || e.target.localName === 'div' || e.target.localName === 'li') {
         let teamId;
         if (Array.from(document.querySelectorAll('#colizq > li.active')).length !== 0) {
@@ -195,6 +150,7 @@ ulColIzq.addEventListener('click', async (e) => {
 });
 
 ulColMed.addEventListener('click', async (e) => {
+    spinnerDer.classList.remove('hide');
     if (e.target.localName === 'div' || e.target.localName === 'li') {
         let playerId;
         if (Array.from(document.querySelectorAll('#colmed > li.active')).length !== 0) {
